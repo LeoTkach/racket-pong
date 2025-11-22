@@ -8,38 +8,69 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-// Auto-setup database on first run (production only)
+// Auto-setup database on first run
 async function setupDatabaseIfNeeded() {
-  if (process.env.NODE_ENV === 'production' || process.env.DATABASE_URL) {
-    try {
-      // Check if tables exist
-      const result = await pool.query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'players')");
+  try {
+    console.log('🔍 Checking database connection...');
+    
+    // Check if tables exist
+    const result = await pool.query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'players')");
+    
+    if (!result.rows[0].exists) {
+      console.log('🔧 Database tables not found. Running initial setup...');
       
-      if (!result.rows[0].exists) {
-        console.log('🔧 Database tables not found. Running initial setup...');
-        
-        // Run schema
-        const schemaPath = path.join(__dirname, '../database/schema.sql');
-        const schema = fs.readFileSync(schemaPath, 'utf8');
-        await pool.query(schema);
-        console.log('✅ Main schema created');
-        
-        // Run guest players migration
-        const guestPath = path.join(__dirname, '../database/add_guest_tournament_players.sql');
-        if (fs.existsSync(guestPath)) {
-          const guestSchema = fs.readFileSync(guestPath, 'utf8');
-          await pool.query(guestSchema);
-          console.log('✅ Guest players migration applied');
-        }
-        
-        console.log('🎉 Database setup completed!');
-      } else {
-        console.log('✅ Database tables already exist');
+      // Run schema
+      const schemaPath = path.join(__dirname, '../database/schema.sql');
+      const schema = fs.readFileSync(schemaPath, 'utf8');
+      await pool.query(schema);
+      console.log('✅ Main schema created');
+      
+      // Run streak fields migration
+      const streakPath = path.join(__dirname, '../database/add_streak_fields.sql');
+      if (fs.existsSync(streakPath)) {
+        const streakSchema = fs.readFileSync(streakPath, 'utf8');
+        await pool.query(streakSchema);
+        console.log('✅ Streak fields migration applied');
       }
-    } catch (error) {
-      console.error('❌ Database setup error:', error.message);
-      // Don't exit - let the app start anyway
+      
+      // Run guest players migration
+      const guestPath = path.join(__dirname, '../database/add_guest_tournament_players.sql');
+      if (fs.existsSync(guestPath)) {
+        const guestSchema = fs.readFileSync(guestPath, 'utf8');
+        await pool.query(guestSchema);
+        console.log('✅ Guest players migration applied');
+      }
+      
+      console.log('🎉 Database setup completed!');
+    } else {
+      console.log('✅ Database tables already exist');
+      
+      // Check and apply missing migrations
+      try {
+        // Check if current_streak column exists
+        const streakCheck = await pool.query(`
+          SELECT column_name 
+          FROM information_schema.columns 
+          WHERE table_name='players' AND column_name='current_streak'
+        `);
+        
+        if (streakCheck.rows.length === 0) {
+          console.log('🔧 Applying streak fields migration...');
+          const streakPath = path.join(__dirname, '../database/add_streak_fields.sql');
+          if (fs.existsSync(streakPath)) {
+            const streakSchema = fs.readFileSync(streakPath, 'utf8');
+            await pool.query(streakSchema);
+            console.log('✅ Streak fields migration applied');
+          }
+        }
+      } catch (migrationError) {
+        console.log('ℹ️ Migration check:', migrationError.message);
+      }
     }
+  } catch (error) {
+    console.error('❌ Database setup error:', error.message);
+    console.error('Full error:', error);
+    // Don't exit - let the app start anyway
   }
 }
 
