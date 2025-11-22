@@ -1,9 +1,47 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const pool = require('./config/database');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3003;
+
+// Auto-setup database on first run (production only)
+async function setupDatabaseIfNeeded() {
+  if (process.env.NODE_ENV === 'production' || process.env.DATABASE_URL) {
+    try {
+      // Check if tables exist
+      const result = await pool.query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'players')");
+      
+      if (!result.rows[0].exists) {
+        console.log('🔧 Database tables not found. Running initial setup...');
+        
+        // Run schema
+        const schemaPath = path.join(__dirname, '../database/schema.sql');
+        const schema = fs.readFileSync(schemaPath, 'utf8');
+        await pool.query(schema);
+        console.log('✅ Main schema created');
+        
+        // Run guest players migration
+        const guestPath = path.join(__dirname, '../database/add_guest_tournament_players.sql');
+        if (fs.existsSync(guestPath)) {
+          const guestSchema = fs.readFileSync(guestPath, 'utf8');
+          await pool.query(guestSchema);
+          console.log('✅ Guest players migration applied');
+        }
+        
+        console.log('🎉 Database setup completed!');
+      } else {
+        console.log('✅ Database tables already exist');
+      }
+    } catch (error) {
+      console.error('❌ Database setup error:', error.message);
+      // Don't exit - let the app start anyway
+    }
+  }
+}
 
 // Middleware
 app.use(cors());
@@ -12,7 +50,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from public directory (for uploaded images)
 // Uploads are handled by the /api/upload routes and stored locally
-const path = require('path');
 const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, '../../frontend/public/uploads');
 app.use('/uploads', express.static(UPLOADS_DIR));
 
@@ -60,7 +97,10 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 API available at http://localhost:${PORT}/api`);
+  
+  // Setup database after server starts
+  await setupDatabaseIfNeeded();
 });
