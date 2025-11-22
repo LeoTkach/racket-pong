@@ -93,29 +93,15 @@ export function TournamentCalendar({ tournaments, onTournamentClick, onMonthChan
         setIsInitialMount(false);
       }
       
-      // При первой загрузке устанавливаем турниры с анимацией появления
+      // При первой загрузке устанавливаем турниры БЕЗ анимации появления
       const initialTournaments = tournaments.map(t => ({
         ...t,
-        _isAppearing: true,
+        _isAppearing: false,
         _isDisappearing: false,
       }));
       setDisplayedTournaments(initialTournaments);
       
-      // Убираем флаги анимации после завершения анимации
-      animationTimerRef.current = setTimeout(() => {
-        setDisplayedTournaments(prev => 
-          prev.map(t => ({ ...t, _isAppearing: false, _isDisappearing: false }))
-        );
-        animationTimerRef.current = null;
-      }, 400); // Длительность анимации появления (0.4s)
-      
-      // Cleanup функция будет очищать animationTimerRef.current
-      return () => {
-        if (animationTimerRef.current) {
-          clearTimeout(animationTimerRef.current);
-          animationTimerRef.current = null;
-        }
-      };
+      return;
     }
   
     // Если нет изменений, выходим
