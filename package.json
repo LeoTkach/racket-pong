@@ -1,0 +1,26 @@
+{
+  "name": "table-tennis-tournament",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "pnpm install",
+    "dev": "pnpm --filter @table-tennis/frontend dev",
+    "dev:backend": "pnpm --filter @table-tennis/backend run server",
+    "dev:full": "concurrently \"pnpm --filter @table-tennis/frontend dev\" \"pnpm --filter @table-tennis/backend run server\"",
+    "build": "pnpm --filter @table-tennis/frontend build",
+    "build:backend": "echo 'Backend does not need build step'",
+    "db:setup": "pnpm --filter @table-tennis/backend db:setup",
+    "db:add-achievements": "pnpm --filter @table-tennis/backend db:add-achievements"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

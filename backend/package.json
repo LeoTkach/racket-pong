@@ -1,0 +1,29 @@
+{
+  "name": "@table-tennis/backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "server": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "db:setup": "node scripts/database/setup-db.js",
+    "db:add-achievements": "node scripts/database/add-missing-achievements.js",
+    "db:update-leonid-rating": "node scripts/database/update-leonid-rating-history.js",
+    "db:reset-test-tournament": "node scripts/database/reset-test-tournament.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.0",
+    "express": "^4.18.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.10",
+    "pg": "^8.11.0",
+    "puppeteer": "^24.30.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.0",
+    "@types/express": "^4.17.0",
+    "@types/node": "^20.10.0",
+    "@types/pg": "^8.10.0"
+  }
+}

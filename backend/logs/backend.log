@@ -1,0 +1,894 @@
+
+> @table-tennis/backend@0.1.0 server
+> node server/index.js
+
+[Auth Router] Loading auth routes...
+[Auth Router] Change password route registered at /change-password (PUT and POST)
+[Notifications Router] Loading notifications routes...
+[Notifications Router] Routes loaded successfully
+🚀 Server running on port 3003
+📊 API available at http://localhost:3003/api
+Connected to PostgreSQL database
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[API] Fetching rating history for player ID: 5
+[API] Found 61 rating history records for player 5
+[API] Rating stats: min=1506, max=2200, unique=61
+[API] First record: { rating: 1506, recorded_at: 2025-05-10T22:04:02.619Z, match_id: 136 }
+[API] Last record: { rating: 2200, recorded_at: 2025-11-06T23:04:02.659Z, match_id: null }
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[🔵 START TOURNAMENT] ==========================================
+[🔵 START TOURNAMENT] Starting tournament 4...
+[🔵 START TOURNAMENT] Tournament: "John Doe" (ID: 4)
+[🔵 START TOURNAMENT] Current status: upcoming
+[🔵 START TOURNAMENT] Format: single-elimination
+[🔵 START TOURNAMENT] Participants: 8
+[🔵 START TOURNAMENT] Status updated to: ongoing
+[🔵 START TOURNAMENT] Existing matches: 7
+[🔵 START TOURNAMENT] ❌❌❌ CRITICAL: Tournament has 7 matches! BLOCKING ALL GENERATION!
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[🏆 MATCH UPDATE] Match 285 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 6
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 6 to next round
+[🏆 ADVANCE] Before update - Match 289:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 6
+[🏆 ADVANCE] Winner 6 advanced to Semifinals Match 0 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 6
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Player null (ID: null)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 285
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 286 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 8
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 8 to next round
+[🏆 ADVANCE] Before update - Match 289:
+[🏆 ADVANCE]   - player2_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player2_id to 8
+[🏆 ADVANCE] Winner 8 advanced to Semifinals Match 0 (player2)
+[🏆 ADVANCE]   - After update, player2_id = 8
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Player null (ID: null)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 286
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 287 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 10
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 10 to next round
+[🏆 ADVANCE] Before update - Match 290:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 10
+[🏆 ADVANCE] Winner 10 advanced to Semifinals Match 1 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 10
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Lin Gaoyuan (ID: 10)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 287
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 288 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 12
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 12 to next round
+[🏆 ADVANCE] Before update - Match 290:
+[🏆 ADVANCE]   - player2_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player2_id to 12
+[🏆 ADVANCE] Winner 12 advanced to Semifinals Match 1 (player2)
+[🏆 ADVANCE]   - After update, player2_id = 12
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Lin Gaoyuan (ID: 10)',
+  player2: 'Liang Jingkun (ID: 12)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 288
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 290 completion check:
+[🏆 MATCH UPDATE]   - Round: Semifinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 10
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 10 to next round
+[🏆 ADVANCE] Before update - Match 291:
+[🏆 ADVANCE]   - player2_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player2_id to 10
+[🏆 ADVANCE] Winner 10 advanced to Final Match 0 (player2)
+[🏆 ADVANCE]   - After update, player2_id = 10
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Final after advance:
+[🏆 ADVANCE]   Match 291: {
+  player1: 'Player null (ID: null)',
+  player2: 'Lin Gaoyuan (ID: 10)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 290
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 289 completion check:
+[🏆 MATCH UPDATE]   - Round: Semifinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 6
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 6 to next round
+[🏆 ADVANCE] Before update - Match 291:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 6
+[🏆 ADVANCE] Winner 6 advanced to Final Match 0 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 6
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Final after advance:
+[🏆 ADVANCE]   Match 291: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Lin Gaoyuan (ID: 10)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 289
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 285 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: 6
+[🏆 MATCH UPDATE]   - Old winner: 6
+[🏆 MATCH UPDATE]   - New winner: 7
+[🏆 MATCH UPDATE]   - Winner changed: true
+[🏆 MATCH UPDATE] ⚠️ Winner changed from 6 to 7, calling updateNextRoundOnWinnerChange
+[🏆 UPDATE WINNER] ========================================
+[🏆 UPDATE WINNER] Winner changed in match 285 (Quarterfinals)
+[🏆 UPDATE WINNER] Old winner: 6
+[🏆 UPDATE WINNER] New winner: 7
+[🔄 CASCADE RESET] ========================================
+[🔄 CASCADE RESET] Starting cascade reset for match 285 in Quarterfinals
+[🔄 CASCADE RESET] Searching for match 285 in Quarterfinals
+[🔄 CASCADE RESET] Found 4 matches in Quarterfinals
+[🔄 CASCADE RESET] Match IDs in round: [285, 286, 287, 288]
+[🔄 CASCADE RESET] Match 285 is at index 0 in Quarterfinals
+[🔄 CASCADE RESET] Match 285 in Quarterfinals (index 0) affects match 289 in Semifinals (index 0, slot player1)
+[🔄 CASCADE RESET] Before reset - Match 289:
+[🔄 CASCADE RESET]   - player1_id: 6
+[🔄 CASCADE RESET]   - player2_id: 8
+[🔄 CASCADE RESET]   - winner_id: 6
+[🔄 CASCADE RESET]   - status: completed
+[🔄 CASCADE RESET]   - Clearing slot: player1 (player1_id)
+[🔄 CASCADE RESET]   - Preserving slot: player2_id = 8
+[🔄 CASCADE RESET] Deleted 1 score record(s) for match 289
+[🔄 CASCADE RESET] ✅ Reset match 289 in Semifinals
+[🔄 CASCADE RESET] After reset - Match 289:
+[🔄 CASCADE RESET]   - player1_id: null (was 6)
+[🔄 CASCADE RESET]   - player2_id: 8 (was 8)
+[🔄 CASCADE RESET]   - winner_id: null (was 6)
+[🔄 CASCADE RESET]   - status: completed (was completed)
+[🔄 CASCADE RESET] ========================================
+[🔄 CASCADE RESET] Starting cascade reset for match 289 in Semifinals
+[🔄 CASCADE RESET] Searching for match 289 in Semifinals
+[🔄 CASCADE RESET] Found 2 matches in Semifinals
+[🔄 CASCADE RESET] Match IDs in round: [289, 290]
+[🔄 CASCADE RESET] Match 289 is at index 0 in Semifinals
+[🔄 CASCADE RESET] Match 289 in Semifinals (index 0) affects match 291 in Final (index 0, slot player1)
+[🔄 CASCADE RESET] Before reset - Match 291:
+[🔄 CASCADE RESET]   - player1_id: 6
+[🔄 CASCADE RESET]   - player2_id: 10
+[🔄 CASCADE RESET]   - winner_id: null
+[🔄 CASCADE RESET]   - status: scheduled
+[🔄 CASCADE RESET]   - Clearing slot: player1 (player1_id)
+[🔄 CASCADE RESET]   - Preserving slot: player2_id = 10
+[🔄 CASCADE RESET] Deleted 0 score record(s) for match 291
+[🔄 CASCADE RESET] ✅ Reset match 291 in Final
+[🔄 CASCADE RESET] After reset - Match 291:
+[🔄 CASCADE RESET]   - player1_id: null (was 6)
+[🔄 CASCADE RESET]   - player2_id: 10 (was 10)
+[🔄 CASCADE RESET]   - winner_id: null (was NULL)
+[🔄 CASCADE RESET]   - status: scheduled (was scheduled)
+[🔄 CASCADE RESET] ✅ Reset Final matches: [291]
+[🔄 CASCADE RESET]   - Cleared winner_id, status, end_time, player1_id, player2_id, scores
+[🏆 UPDATE WINNER] Found 4 matches in Quarterfinals
+[🏆 UPDATE WINNER] Target match 289 in Semifinals:
+[🏆 UPDATE WINNER]   - player1_id: null
+[🏆 UPDATE WINNER]   - player2_id: 8
+[🏆 UPDATE WINNER]   - Target slot (player1): null
+[🏆 UPDATE WINNER]   - Other slot (player2_id): 8
+[🏆 UPDATE WINNER]   - Expected: NULL or 6
+[🏆 UPDATE WINNER] Clearing winner_id: true
+[🏆 UPDATE WINNER] Current winner_id: null
+[🏆 UPDATE WINNER] Old winner: 6, New winner: 7
+[🏆 UPDATE WINNER] Current slot value: null
+[🏆 UPDATE WINNER] ✅ Set 7 in Semifinals Match 0 (player1)
+[🏆 UPDATE WINNER]   - After update, player1 = 7
+[🏆 UPDATE WINNER]   - After update, player2_id = 8
+[🏆 UPDATE WINNER]   - After update, winner_id = null (should be NULL)
+[🏆 UPDATE WINNER] 📊 All matches in Semifinals after update:
+[🏆 UPDATE WINNER]   Match 289: {
+  player1: 'Fan Zhendong (ID: 7)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[🏆 UPDATE WINNER]   Match 290: {
+  player1: 'Lin Gaoyuan (ID: 10)',
+  player2: 'Liang Jingkun (ID: 12)',
+  winner: 'Lin Gaoyuan (ID: 10)',
+  status: 'completed',
+  isUpdated: ''
+}
+[🏆 UPDATE WINNER] 📊 All matches in Final (may be affected):
+[🏆 UPDATE WINNER]   Match 291: {
+  player1: 'Player null (ID: null)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled'
+}
+[🏆 UPDATE WINNER] ========================================
+
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 285
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 13, 13, 13 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 1
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=4, P2 sets=4
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+Connected to PostgreSQL database
+[🏆 MATCH UPDATE] Match 289 completion check:
+[🏆 MATCH UPDATE]   - Round: Semifinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 7
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 7 to next round
+[🏆 ADVANCE] Before update - Match 291:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 7
+[🏆 ADVANCE] Winner 7 advanced to Final Match 0 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 7
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Final after advance:
+[🏆 ADVANCE]   Match 291: {
+  player1: 'Fan Zhendong (ID: 7)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 289
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+Connected to PostgreSQL database
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[API] Fetching rating history for player ID: 5
+[API] Found 61 rating history records for player 5
+[API] Rating stats: min=1506, max=2200, unique=61
+[API] First record: { rating: 1506, recorded_at: 2025-05-10T22:04:02.619Z, match_id: 136 }
+[API] Last record: { rating: 2200, recorded_at: 2025-11-06T23:04:02.659Z, match_id: null }
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+Connected to PostgreSQL database
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[API] Fetching rating history for player ID: 5
+[API] Found 61 rating history records for player 5
+[API] Rating stats: min=1506, max=2200, unique=61
+[API] First record: { rating: 1506, recorded_at: 2025-05-10T22:04:02.619Z, match_id: 136 }
+[API] Last record: { rating: 2200, recorded_at: 2025-11-06T23:04:02.659Z, match_id: null }
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[🔵 START TOURNAMENT] ==========================================
+[🔵 START TOURNAMENT] Starting tournament 4...
+[🔵 START TOURNAMENT] Tournament: "John Doe" (ID: 4)
+[🔵 START TOURNAMENT] Current status: upcoming
+[🔵 START TOURNAMENT] Format: single-elimination
+[🔵 START TOURNAMENT] Participants: 8
+[🔵 START TOURNAMENT] Status updated to: ongoing
+[🔵 START TOURNAMENT] Existing matches: 7
+[🔵 START TOURNAMENT] ❌❌❌ CRITICAL: Tournament has 7 matches! BLOCKING ALL GENERATION!
+Filtering by organizer_id: 5
+WHERE clause: WHERE t.organizer_id = $1
+Query params: [ 5 ]
+Final SQL query: 
+      SELECT 
+        t.*,
+        p.username as organizer_username,
+        p.full_name as organizer_name,
+        COUNT(tp.player_id) as participant_count
+      FROM tournaments t
+      LEFT JOIN players p ON t.organizer_id = p.id
+      LEFT JOIN tournament_participants tp ON t.id = tp.tournament_id
+      WHERE t.organizer_id = $1
+      GROUP BY t.id, p.username, p.full_name
+      ORDER BY t.date DESC
+      LIMIT $2 OFFSET $3
+    
+Final query params: [ 5, 1000, 0 ]
+Tournaments found: 2
+[🏆 MATCH UPDATE] Match 285 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 6
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 6 to next round
+[🏆 ADVANCE] Before update - Match 289:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 6
+[🏆 ADVANCE] Winner 6 advanced to Semifinals Match 0 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 6
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Player null (ID: null)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 285
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 286 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 8
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 8 to next round
+[🏆 ADVANCE] Before update - Match 289:
+[🏆 ADVANCE]   - player2_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player2_id to 8
+[🏆 ADVANCE] Winner 8 advanced to Semifinals Match 0 (player2)
+[🏆 ADVANCE]   - After update, player2_id = 8
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Player null (ID: null)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 286
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 287 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 10
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 10 to next round
+[🏆 ADVANCE] Before update - Match 290:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 10
+[🏆 ADVANCE] Winner 10 advanced to Semifinals Match 1 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 10
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Lin Gaoyuan (ID: 10)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 287
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 288 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 12
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 12 to next round
+[🏆 ADVANCE] Before update - Match 290:
+[🏆 ADVANCE]   - player2_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player2_id to 12
+[🏆 ADVANCE] Winner 12 advanced to Semifinals Match 1 (player2)
+[🏆 ADVANCE]   - After update, player2_id = 12
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Semifinals after advance:
+[🏆 ADVANCE]   Match 289: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: ''
+}
+[🏆 ADVANCE]   Match 290: {
+  player1: 'Lin Gaoyuan (ID: 10)',
+  player2: 'Liang Jingkun (ID: 12)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 288
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 289 completion check:
+[🏆 MATCH UPDATE]   - Round: Semifinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 6
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 6 to next round
+[🏆 ADVANCE] Before update - Match 291:
+[🏆 ADVANCE]   - player1_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player1_id to 6
+[🏆 ADVANCE] Winner 6 advanced to Final Match 0 (player1)
+[🏆 ADVANCE]   - After update, player1_id = 6
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Final after advance:
+[🏆 ADVANCE]   Match 291: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 289
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 290 completion check:
+[🏆 MATCH UPDATE]   - Round: Semifinals
+[🏆 MATCH UPDATE]   - Was already completed: false
+[🏆 MATCH UPDATE]   - Old winner: null
+[🏆 MATCH UPDATE]   - New winner: 10
+[🏆 MATCH UPDATE]   - Winner changed: false
+[🏆 MATCH UPDATE] New completion, advancing winner 10 to next round
+[🏆 ADVANCE] Before update - Match 291:
+[🏆 ADVANCE]   - player2_id: null
+[🏆 ADVANCE]   - winner_id: NULL
+[🏆 ADVANCE]   - Setting player2_id to 10
+[🏆 ADVANCE] Winner 10 advanced to Final Match 0 (player2)
+[🏆 ADVANCE]   - After update, player2_id = 10
+[🏆 ADVANCE]   - After update, winner_id = null (should be NULL)
+[🏆 ADVANCE] 📊 All matches in Final after advance:
+[🏆 ADVANCE]   Match 291: {
+  player1: 'Ma Long (ID: 6)',
+  player2: 'Lin Gaoyuan (ID: 10)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 290
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 0, 0 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 0
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=3, P2 sets=3
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+
+[🏆 MATCH UPDATE] Match 285 completion check:
+[🏆 MATCH UPDATE]   - Round: Quarterfinals
+[🏆 MATCH UPDATE]   - Was already completed: 6
+[🏆 MATCH UPDATE]   - Old winner: 6
+[🏆 MATCH UPDATE]   - New winner: 7
+[🏆 MATCH UPDATE]   - Winner changed: true
+[🏆 MATCH UPDATE] ⚠️ Winner changed from 6 to 7, calling updateNextRoundOnWinnerChange
+[🏆 UPDATE WINNER] ========================================
+[🏆 UPDATE WINNER] Winner changed in match 285 (Quarterfinals)
+[🏆 UPDATE WINNER] Old winner: 6
+[🏆 UPDATE WINNER] New winner: 7
+[🔄 CASCADE RESET] ========================================
+[🔄 CASCADE RESET] Starting cascade reset for match 285 in Quarterfinals
+[🔄 CASCADE RESET] Searching for match 285 in Quarterfinals
+[🔄 CASCADE RESET] Found 4 matches in Quarterfinals
+[🔄 CASCADE RESET] Match IDs in round: [285, 286, 287, 288]
+[🔄 CASCADE RESET] Match 285 is at index 0 in Quarterfinals
+[🔄 CASCADE RESET] Match 285 in Quarterfinals (index 0) affects match 289 in Semifinals (index 0, slot player1)
+[🔄 CASCADE RESET] Before reset - Match 289:
+[🔄 CASCADE RESET]   - player1_id: 6
+[🔄 CASCADE RESET]   - player2_id: 8
+[🔄 CASCADE RESET]   - winner_id: 6
+[🔄 CASCADE RESET]   - status: completed
+[🔄 CASCADE RESET]   - Clearing slot: player1 (player1_id)
+[🔄 CASCADE RESET]   - Preserving slot: player2_id = 8
+[🔄 CASCADE RESET] Deleted 1 score record(s) for match 289
+[🔄 CASCADE RESET] ✅ Reset match 289 in Semifinals
+[🔄 CASCADE RESET] After reset - Match 289:
+[🔄 CASCADE RESET]   - player1_id: null (was 6)
+[🔄 CASCADE RESET]   - player2_id: 8 (was 8)
+[🔄 CASCADE RESET]   - winner_id: null (was 6)
+[🔄 CASCADE RESET]   - status: completed (was completed)
+[🔄 CASCADE RESET] ========================================
+[🔄 CASCADE RESET] Starting cascade reset for match 289 in Semifinals
+[🔄 CASCADE RESET] Searching for match 289 in Semifinals
+[🔄 CASCADE RESET] Found 2 matches in Semifinals
+[🔄 CASCADE RESET] Match IDs in round: [289, 290]
+[🔄 CASCADE RESET] Match 289 is at index 0 in Semifinals
+[🔄 CASCADE RESET] Match 289 in Semifinals (index 0) affects match 291 in Final (index 0, slot player1)
+[🔄 CASCADE RESET] Before reset - Match 291:
+[🔄 CASCADE RESET]   - player1_id: 6
+[🔄 CASCADE RESET]   - player2_id: 10
+[🔄 CASCADE RESET]   - winner_id: null
+[🔄 CASCADE RESET]   - status: scheduled
+[🔄 CASCADE RESET]   - Clearing slot: player1 (player1_id)
+[🔄 CASCADE RESET]   - Preserving slot: player2_id = 10
+[🔄 CASCADE RESET] Deleted 0 score record(s) for match 291
+[🔄 CASCADE RESET] ✅ Reset match 291 in Final
+[🔄 CASCADE RESET] After reset - Match 291:
+[🔄 CASCADE RESET]   - player1_id: null (was 6)
+[🔄 CASCADE RESET]   - player2_id: 10 (was 10)
+[🔄 CASCADE RESET]   - winner_id: null (was NULL)
+[🔄 CASCADE RESET]   - status: scheduled (was scheduled)
+[🔄 CASCADE RESET] ✅ Reset Final matches: [291]
+[🔄 CASCADE RESET]   - Cleared winner_id, status, end_time, player1_id, player2_id, scores
+[🏆 UPDATE WINNER] Found 4 matches in Quarterfinals
+[🏆 UPDATE WINNER] Target match 289 in Semifinals:
+[🏆 UPDATE WINNER]   - player1_id: null
+[🏆 UPDATE WINNER]   - player2_id: 8
+[🏆 UPDATE WINNER]   - Target slot (player1): null
+[🏆 UPDATE WINNER]   - Other slot (player2_id): 8
+[🏆 UPDATE WINNER]   - Expected: NULL or 6
+[🏆 UPDATE WINNER] Clearing winner_id: true
+[🏆 UPDATE WINNER] Current winner_id: null
+[🏆 UPDATE WINNER] Old winner: 6, New winner: 7
+[🏆 UPDATE WINNER] Current slot value: null
+[🏆 UPDATE WINNER] ✅ Set 7 in Semifinals Match 0 (player1)
+[🏆 UPDATE WINNER]   - After update, player1 = 7
+[🏆 UPDATE WINNER]   - After update, player2_id = 8
+[🏆 UPDATE WINNER]   - After update, winner_id = null (should be NULL)
+[🏆 UPDATE WINNER] 📊 All matches in Semifinals after update:
+[🏆 UPDATE WINNER]   Match 289: {
+  player1: 'Fan Zhendong (ID: 7)',
+  player2: 'Tomokazu Harimoto (ID: 8)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled',
+  isUpdated: '✅ UPDATED'
+}
+[🏆 UPDATE WINNER]   Match 290: {
+  player1: 'Lin Gaoyuan (ID: 10)',
+  player2: 'Liang Jingkun (ID: 12)',
+  winner: 'Lin Gaoyuan (ID: 10)',
+  status: 'completed',
+  isUpdated: ''
+}
+[🏆 UPDATE WINNER] 📊 All matches in Final (may be affected):
+[🏆 UPDATE WINNER]   Match 291: {
+  player1: 'Player null (ID: null)',
+  player2: 'Player null (ID: null)',
+  winner: 'None (ID: NULL)',
+  status: 'scheduled'
+}
+[🏆 UPDATE WINNER] ========================================
+
+[📊 UPDATE SCORES] ========================================
+[📊 UPDATE SCORES] Match ID: 285
+[📊 UPDATE SCORES] Player1 scores: [ 11, 11, 11, 11 ]
+[📊 UPDATE SCORES] Player2 scores: [ 0, 13, 13, 13 ]
+[📊 UPDATE SCORES] ✅ Match found: Tournament 4
+[📊 UPDATE SCORES] Existing scores records: 1
+[📊 UPDATE SCORES] ✅ Scores updated successfully
+[📊 UPDATE SCORES] Calculating winner: P1 sets=4, P2 sets=4
+[📊 UPDATE SCORES] No winner determined (equal sets)
+[📊 UPDATE SCORES] ========================================
+

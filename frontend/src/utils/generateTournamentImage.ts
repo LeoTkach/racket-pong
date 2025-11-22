@@ -1,0 +1,126 @@
+// Utility function to generate tournament default image
+export function generateTournamentImage(tournamentId: number, width = 800, height = 600): Promise<File> {
+  return new Promise((resolve, reject) => {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+
+      if (!ctx) {
+        reject(new Error('Could not get canvas context'));
+        return;
+      }
+
+      // Градиенты для fallback - более интересные и яркие
+      const gradients = [
+        { start: '#667eea', end: '#764ba2' }, // Purple-Blue
+        { start: '#f093fb', end: '#f5576c' }, // Pink-Red
+        { start: '#4facfe', end: '#00f2fe' }, // Blue-Cyan
+        { start: '#43e97b', end: '#38f9d7' }, // Green-Turquoise
+        { start: '#fa709a', end: '#fee140' }, // Pink-Yellow
+        { start: '#30cfd0', end: '#330867' }, // Cyan-Deep Purple
+        { start: '#f7b733', end: '#fc4a1a' }, // Yellow-Orange
+        { start: '#ff512f', end: '#dd2476' }, // Orange-Red
+        { start: '#fa8bff', end: '#2bd2ff' }, // Bright Purple-Blue
+        { start: '#667eea', end: '#764ba2' }, // Brighter Purple-Blue (replaces Coral-Blue)
+        { start: '#fad961', end: '#f76b1c' }, // Golden-Orange
+        { start: '#8360c3', end: '#2ebf91' }, // Purple-Green
+        { start: '#ee0979', end: '#ff6a00' }, // Deep Pink-Orange
+        { start: '#00c9ff', end: '#92fe9d' }, // Bright Cyan-Green
+        { start: '#fbc2eb', end: '#a6c1ee' }, // Soft Pink-Blue
+        { start: '#a1c4fd', end: '#c2e9fb' }, // Light Blue
+        { start: '#ff0844', end: '#ffb199' }, // Red-Peach
+        { start: '#00d2ff', end: '#3a7bd5' }, // Cyan-Ocean Blue
+        { start: '#f857a6', end: '#ff5858' }, // Magenta-Red
+        { start: '#00c6ff', end: '#0072ff' }, // Sky Blue-Deep Blue
+        { start: '#fddb92', end: '#d1fdff' }, // Gold-Mint
+        { start: '#89f7fe', end: '#66a6ff' }, // Light Cyan-Blue
+        { start: '#d53369', end: '#daae51' }, // Purple-Pink-Gold
+        { start: '#a6c0fe', end: '#f68084' }, // Blue-Coral
+      ];
+
+      const gradient = gradients[tournamentId % gradients.length];
+
+      // Create linear gradient
+      const linearGradient = ctx.createLinearGradient(0, 0, width, height);
+      linearGradient.addColorStop(0, gradient.start);
+      linearGradient.addColorStop(1, gradient.end);
+
+      // Fill background with gradient
+      ctx.fillStyle = linearGradient;
+      ctx.fillRect(0, 0, width, height);
+
+      // Add pattern overlay (dots) - subtle but visible
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.12)'; // Slightly more visible dots
+      const dotSpacing = 80; // Spacing between dots
+      const dotRadius = 4; // Dot size
+      for (let x = 0; x < width; x += dotSpacing) {
+        for (let y = 0; y < height; y += dotSpacing) {
+          ctx.beginPath();
+          ctx.arc(x + dotSpacing / 2, y + dotSpacing / 2, dotRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // SVG paths for logo (racket and ball) - matching ImageWithFallback
+      const SVG_PATHS = {
+        racket: "M19.667 10.7002C29.7669 -2.07443 48.6512 -3.4783 61.7871 6.85259C61.8135 6.87332 61.8385 6.89569 61.8643 6.91704C74.8526 17.1969 77.9478 35.658 68.1592 48.4532L68.126 48.4961L67.4766 49.3223L67.459 49.3438L67.4424 49.3653C62.9383 54.9324 58.3969 58.3544 54.0196 60.2471C49.2996 62.6545 45.2425 63.305 39.5459 62.627C39.1591 62.581 38.7944 62.4976 38.4717 62.3975C35.1277 61.3606 33.0678 61.1916 31.6739 61.4034C30.4355 61.5916 29.3946 62.1278 28.1582 63.3497C26.8015 64.6905 25.4058 66.6554 23.4629 69.5772C21.5831 72.4041 19.2938 75.9611 16.3057 80.0147C14.2822 82.7597 10.4206 83.2216 7.79495 81.1563L2.28909 76.8262C-0.336595 74.7609 -0.796515 70.8994 1.39456 68.2862L2.5928 66.876C5.35023 63.6705 7.83613 61.0524 9.85256 58.8711C12.2343 56.2947 13.8144 54.4752 14.7979 52.8409C15.6941 51.3514 15.9702 50.2138 15.8614 48.9659C15.7387 47.5612 15.0895 45.5986 13.294 42.5928C13.1204 42.3023 12.9539 41.9677 12.8184 41.6036C11.6665 38.5085 11.0213 35.7278 10.999 32.8047C10.977 29.904 11.5709 27.1249 12.5342 24.0567C12.5536 23.9948 12.5742 23.9332 12.5967 23.8721C13.7886 19.8438 16.0147 15.4641 19.6299 10.7481L19.6485 10.7237L19.667 10.7002ZM59.3145 9.99712C47.7278 0.884679 31.3962 2.31455 22.8047 13.1817C19.3637 17.6705 17.3796 21.6888 16.3682 25.2208C16.3664 25.227 16.3634 25.2332 16.3594 25.2383C16.3556 25.2432 16.3525 25.2491 16.3506 25.2549C14.5502 30.9892 14.4752 34.5887 16.5664 40.2081C16.6087 40.3218 16.6663 40.4379 16.7285 40.542C24.4549 53.4761 17.0841 55.8001 4.45999 70.8565C3.74213 71.7127 3.88449 72.9909 4.76272 73.6817L10.2686 78.0127C11.1468 78.7034 12.423 78.54 13.086 77.6407C24.7445 61.825 25.2668 54.1141 39.6573 58.5762C39.773 58.6121 39.8983 58.64 40.0186 58.6543C45.0501 59.2532 48.3153 58.6885 52.3135 56.628C56.0183 55.0526 60.1058 52.0733 64.3321 46.8497L64.9824 46.0225C73.3262 35.1157 70.8274 19.0558 59.3164 10L59.3155 9.99907L59.3145 9.99712Z",
+        ball: "M61.5097 26.9731C61.5097 30.563 58.5996 33.4731 55.0097 33.4731C51.4199 33.4731 48.5097 30.563 48.5097 26.9731C48.5097 23.3833 51.4199 20.4731 55.0097 20.4731C58.5996 20.4731 61.5097 23.3833 61.5097 26.9731Z",
+      };
+
+      // Draw large logo in center - 8.4x original size for optimal visibility
+      // Original size is 74x83, making it 8.4x larger
+      const logoWidth = 621.6; // 8.4x original (74 * 8.4)
+      const logoHeight = 697.2; // 8.4x original (83 * 8.4)
+      const logoX = (width - logoWidth) / 2;
+      const logoY = (height - logoHeight) / 2;
+
+      const img = new Image();
+      const svgBlob = new Blob([
+        `<svg width="${logoWidth}" height="${logoHeight}" viewBox="0 0 74 83" xmlns="http://www.w3.org/2000/svg">
+          <path d="${SVG_PATHS.racket}" fill="#FFFFFF" opacity="0.6"/>
+          <path d="${SVG_PATHS.ball}" fill="#FFFFFF" opacity="0.6"/>
+        </svg>`
+      ], { type: 'image/svg+xml' });
+
+      const url = URL.createObjectURL(svgBlob);
+      img.onload = () => {
+        ctx.drawImage(img, logoX, logoY, logoWidth, logoHeight);
+        URL.revokeObjectURL(url);
+
+        // No dark overlay at bottom - removed as requested
+
+        // Convert canvas to blob and then to File
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            reject(new Error('Failed to create blob from canvas'));
+            return;
+          }
+
+          const file = new File([blob], `tournament-${tournamentId}-default.png`, { type: 'image/png' });
+          resolve(file);
+        }, 'image/png');
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        // If SVG fails, just create gradient image without logo and without overlay
+
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            reject(new Error('Failed to create blob from canvas'));
+            return;
+          }
+          const file = new File([blob], `tournament-${tournamentId}-default.png`, { type: 'image/png' });
+          resolve(file);
+        }, 'image/png');
+      };
+
+      img.src = url;
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
