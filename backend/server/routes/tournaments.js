@@ -1,15 +1,7 @@
 const express = require('express');
-const { Pool } = require('pg');
 const router = express.Router();
 const emailService = require('../services/emailService');
-
-const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'table_tennis_tournament',
-  password: process.env.DB_PASSWORD || 'password',
-  port: process.env.DB_PORT || 5432,
-});
+const pool = require('../../config/database');
 
 // Get all tournaments with pagination and filtering
 router.get('/', async (req, res) => {
