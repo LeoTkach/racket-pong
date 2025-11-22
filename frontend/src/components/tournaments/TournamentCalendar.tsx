@@ -425,12 +425,6 @@ export function TournamentCalendar({ tournaments, onTournamentClick, onMonthChan
         .month-header-slide-backward {
           animation: slideInFromLeft 0.4s ease-out forwards;
         }
-        .cell-color-transition {
-          transition: background 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-        }
-        .cell-overlay-transition {
-          transition: background 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-        }
       `}</style>
 
       <div className="space-y-6 mb-8">

@@ -27,7 +27,7 @@ export function CalendarCell({
   return (
     <div
       className={`
-        p-2 rounded-lg border-2 flex flex-col relative cell-color-transition
+        p-2 rounded-lg border-2 flex flex-col relative
         ${isTodayDate ? '' : 'border-border'}
       `}
       onMouseEnter={(e) => {
@@ -70,7 +70,6 @@ export function CalendarCell({
         position: 'relative',
         zIndex: 60,
         overflow: 'visible',
-        transition: 'background 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
         ...(isTodayDate && {
           borderColor: isLightTheme 
             ? 'rgba(34, 197, 94, 0.7)' 
@@ -94,7 +93,6 @@ export function CalendarCell({
                   ? 'rgba(255, 255, 255, 0.3)' 
                   : 'rgba(15, 23, 42, 0.2)'),
           zIndex: -1,
-          transition: 'background 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
         }}
       />
       

@@ -33,6 +33,14 @@ async function setupDatabaseIfNeeded() {
         console.log('✅ Streak fields migration applied');
       }
       
+      // Run group stage migration
+      const groupPath = path.join(__dirname, '../database/add_group_stage_settings.sql');
+      if (fs.existsSync(groupPath)) {
+        const groupSchema = fs.readFileSync(groupPath, 'utf8');
+        await pool.query(groupSchema);
+        console.log('✅ Group stage settings migration applied');
+      }
+      
       // Run guest players migration
       const guestPath = path.join(__dirname, '../database/add_guest_tournament_players.sql');
       if (fs.existsSync(guestPath)) {
@@ -61,6 +69,23 @@ async function setupDatabaseIfNeeded() {
             const streakSchema = fs.readFileSync(streakPath, 'utf8');
             await pool.query(streakSchema);
             console.log('✅ Streak fields migration applied');
+          }
+        }
+        
+        // Check if num_groups column exists
+        const groupCheck = await pool.query(`
+          SELECT column_name 
+          FROM information_schema.columns 
+          WHERE table_name='tournaments' AND column_name='num_groups'
+        `);
+        
+        if (groupCheck.rows.length === 0) {
+          console.log('🔧 Applying group stage settings migration...');
+          const groupPath = path.join(__dirname, '../database/add_group_stage_settings.sql');
+          if (fs.existsSync(groupPath)) {
+            const groupSchema = fs.readFileSync(groupPath, 'utf8');
+            await pool.query(groupSchema);
+            console.log('✅ Group stage settings migration applied');
           }
         }
       } catch (migrationError) {
